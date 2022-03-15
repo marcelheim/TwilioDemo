@@ -1,0 +1,35 @@
+﻿@using web.Services
+@{
+    ViewData["Title"] = "Home Page";
+}
+@inject Twilio _twilio
+
+<div>
+  <legend>Send Whatsapp message</legend>
+  <div>
+    <label for="From">From: </label>
+    <input type="text" name="From" @bind="_from" />
+  </div>
+  <div>
+    <label for="To">To:</label>
+    <input type="text" name="To" @bind="_to" />
+  </div>
+  <div>
+    <label for="Message">Message:</label>
+    <input type="text" name="Message" @bind="_message" />
+  </div>
+  <div>
+    <button @onclick="HandleSend"></button>
+  </div>
+</div>
+
+@code {
+  private string _from = "";
+  private string _to = "";
+  private string _message = "";
+
+  private void HandleSend()
+  {
+    _twilio.SendMessage(_from, _to, _message);
+  }
+}
